@@ -1,4 +1,5 @@
 import React from "react"
+import{ Button }  from "./button"
 
 export function Header() {
     return (
@@ -7,13 +8,13 @@ export function Header() {
             <nav>
                 <ul className="flex gap-4">
                     <li>
-                        <a href="#">Home</a>
+                        <Button variant="link" ><a href="https://discord.com/channels/779933168626171984/779933168626171987">Home</a></Button>
                     </li>
                     <li>
-                        <a href="#">Sign In</a>
+                        <Button variant="link">Sign In</Button>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <Button variant="link">Contact Us</Button>
                     </li>
                 </ul>
             </nav>
