@@ -37,6 +37,15 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+## Instructions to contribute:
+
+Checkout a new branch from main and give it a name with respect to the Linear ticket. The name of the branch should be self explanatory and relevant to the feature. 
+
+### To push your changes:
+Create a pull request and the lead will review the code. Mention the ticket so there's no confusion in the feature expected.
+
+** Do not push code on the main branch directly. Always create a pull request. **
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
