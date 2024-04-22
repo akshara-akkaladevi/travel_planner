@@ -1,6 +1,5 @@
 import React from "react";
 import { Header } from "../../components/ui/header";
-// import { Footer } from "../../components/ui/footer";
 import { FooterNew } from "../../components/ui/footer";
 
 
