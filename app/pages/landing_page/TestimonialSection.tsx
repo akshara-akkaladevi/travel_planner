@@ -4,7 +4,6 @@ const testimonialData = [
     { id: 1, name: "Paris", imageUrl: "./image/paris.jpg" },
     { id: 2, name: "Dubai", imageUrl: "./image/dubai.jpg" },
     { id: 3, name: "Jammu", imageUrl: "/../../image/jammu.jpg" },
-    // Add more testimonial data as needed
 ];
 
 
