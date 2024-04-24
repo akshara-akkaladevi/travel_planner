@@ -1,8 +1,9 @@
 import React from 'react'
+import Questionnaire from './Questionnaire';
 
 const QuestionnairePage = () => {
   return (
-    <h1>Hello</h1>
+    <Questionnaire></Questionnaire>
   )
 }
 
