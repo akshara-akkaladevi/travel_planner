@@ -1,0 +1,101 @@
+/* styles.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Center vertically in the viewport */
+  }
+  
+  .step-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .question {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .question-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .option-button {
+    background-color: #3498db;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .option-button.selected {
+    background-color: #f1c40f;
+  }
+  
+  .next-button {
+    margin-top: 20px;
+    background-color: #2ecc71;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .next-button:hover {
+    background-color: #27ae60;
+  }
+
+  /* styles.css */
+
+.search-input {
+    padding: 8px 12px; /* Adjust padding as needed */
+    font-size: 1rem; /* Adjust font size as needed */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Border radius */
+    width: 100%; /* Take up full width of container */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+  }
+  
+  .search-input::placeholder {
+    color: #999; /* Placeholder text color */
+  }
+  
+  .date-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .date-picker {
+    margin: 0 10px;
+    text-align: center;
+  }
+  
+  .date-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .date-input {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  
