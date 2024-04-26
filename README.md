@@ -3,16 +3,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Instructions to contribute:
 Clone this repository and navigate into the folder.
 
-Checkout a new branch from main and give it a name with respect to the Linear ticket. The name of the branch should be self explanatory and relevant to the feature. 
+Checkout a new branch from main and give it a name with respect to the Linear ticket. The name of the branch should be self-explanatory and relevant to the feature. 
 
 ### To push your changes:
 Create a pull request and the lead will review the code. Mention the ticket so there's no confusion in the feature expected.
 
-** Do not push code on the main branch directly. Always create a pull request. **
+**Note: Do not push code on the main branch directly. Always create a pull request.**
 
 ## Getting Started
 
-First, run the install command to install all the dependencies:
+First, run the installation command to install all the dependencies:
 
 ```bash
 npm install
@@ -51,4 +51,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
