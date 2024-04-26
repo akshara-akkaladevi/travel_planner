@@ -5,6 +5,14 @@ import './styles.css';
 import DateInput from './dateInput';
 
 
+const CrossButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+  return (
+    <button className="cross-button" onClick={onClick}>
+      ✕
+    </button>
+  );
+};
+
 const renderDateInput = () => {
     return <DateInput />
 }
@@ -61,6 +69,8 @@ const renderSearchInput = () => {
   const Question: React.FC<{ question: string; inputType: string; options?: string[] }> = ({ question, inputType, options }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+
   
     const handleSingleOptionClick = (option: string) => {
       setSelectedOption(option);
@@ -101,11 +111,15 @@ const Questionnaire: React.FC = () => {
   const handleNext = () => {
     setCurrentQuestionIndex(prevIndex => prevIndex + 1);
   };
+  const handleRedirectToHome = () => {
+    window.location.href = '/';
+  };
 
   return (
     <div className="container">
       {questions.length > 0 && (
         <>
+          <CrossButton onClick={handleRedirectToHome} /> 
           <h2 className="step-count">Step {currentQuestionIndex + 1} of {questions.length}</h2>
           <Question
             question={questions[currentQuestionIndex].question}

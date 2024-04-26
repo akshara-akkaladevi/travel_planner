@@ -66,16 +66,16 @@
   /* styles.css */
 
 .search-input {
-    padding: 8px 12px; /* Adjust padding as needed */
-    font-size: 1rem; /* Adjust font size as needed */
-    border: 1px solid #ccc; /* Border color */
-    border-radius: 4px; /* Border radius */
-    width: 100%; /* Take up full width of container */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    padding: 8px 12px; 
+    font-size: 1rem; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    width: 100%; 
+    box-sizing: border-box; 
   }
   
   .search-input::placeholder {
-    color: #999; /* Placeholder text color */
+    color: #999; 
   }
   
   .date-container {
@@ -96,6 +96,22 @@
   .date-input {
     display: block;
     margin: 0 auto;
+    border: 1px solid #ccc; 
   }
   
+  .cross-button {
+    position: absolute;
+    top: 5px; 
+    right: calc(50% - 20px);
+    background-color: transparent;
+    border: none;
+    font-size: 2rem; 
+    cursor: pointer;
+    color: #333; 
+  }
+  
+  .cross-button:hover {
+    color: #666;
+  }
+
   

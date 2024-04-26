@@ -4,8 +4,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import './styles.css'; 
 
 const DateInput = () => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   return (
     <div className="date-container">
@@ -13,7 +13,7 @@ const DateInput = () => {
         <label className="date-label">From Date:</label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date: Date) => setStartDate(date)}
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -25,7 +25,7 @@ const DateInput = () => {
         <label className="date-label">To Date:</label>
         <DatePicker
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date: Date) => setEndDate(date)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
