@@ -1,0 +1,119 @@
+/* styles.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Center vertically in the viewport */
+  }
+  
+  .step-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .question {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .question-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .option-button {
+    background-color: #3498db;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .option-button.selected {
+    background-color: #f1c40f;
+  }
+  
+  .next-button {
+    margin-top: 20px;
+    background-color: #2ecc71;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .next-button:hover {
+    background-color: #27ae60;
+  }
+
+  /* styles.css */
+
+.search-input {
+    padding: 8px 12px; 
+    font-size: 1rem; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    width: 100%; 
+    box-sizing: border-box; 
+  }
+  
+  .search-input::placeholder {
+    color: #999; 
+  }
+  
+  .date-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .date-picker {
+    margin: 0 10px;
+    text-align: center;
+  }
+  
+  .date-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .date-input {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 2px;
+  }
+  
+  .cross-button {
+    position: absolute;
+    top: 5px; 
+    right: calc(50% - 20px);
+    background-color: transparent;
+    border: none;
+    font-size: 2rem; 
+    cursor: pointer;
+    color: #333; 
+  }
+  
+  .cross-button:hover {
+    color: #666;
+  }
+
+  
