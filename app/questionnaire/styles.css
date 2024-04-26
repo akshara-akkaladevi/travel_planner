@@ -96,7 +96,9 @@
   .date-input {
     display: block;
     margin: 0 auto;
-    border: 1px solid #ccc; 
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 2px;
   }
   
   .cross-button {
