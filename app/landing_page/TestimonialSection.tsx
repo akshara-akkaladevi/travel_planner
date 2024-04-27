@@ -61,7 +61,6 @@ const CardDescription = ({ description }: { description: string }) => (
     </div>
 );
 
-
 export function TestimonialSection() {
     const [startIndex, setStartIndex] = useState(0);
 
@@ -76,7 +75,8 @@ export function TestimonialSection() {
     };
 
     return (
-        <section className="testimonial h-full flex flex-col justify-center items-center">
+        <section className="testimonial h-full flex flex-col justify-center items-center" style={{ height: "100vh" }}>
+            <h2 className="text-3xl font-bold mb-10">Explore our packages!</h2>
             <div className="testimonial-slider relative flex items-center">
                 <LeftButton onClick={goToPreviousSlide} />
                 <div className="testimonial-list flex items-center">
