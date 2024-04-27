@@ -65,13 +65,21 @@ export function TestimonialSection() {
     const [startIndex, setStartIndex] = useState(0);
 
     const goToPreviousSlide = () => {
-        const newIndex = Math.max(startIndex - 3, 0);
-        setStartIndex(newIndex);
+        const newIndex = startIndex - 3;
+        if (newIndex < 0) {
+            setStartIndex(testimonialData.length - Math.abs(newIndex));
+        } else {
+            setStartIndex(newIndex);
+        }
     };
 
     const goToNextSlide = () => {
-        const newIndex = Math.min(startIndex + 3, testimonialData.length - 3);
-        setStartIndex(newIndex);
+        const newIndex = startIndex + 3;
+        if (newIndex >= testimonialData.length) {
+            setStartIndex(newIndex - testimonialData.length);
+        } else {
+            setStartIndex(newIndex);
+        }
     };
 
     return (
@@ -80,9 +88,12 @@ export function TestimonialSection() {
             <div className="testimonial-slider relative flex items-center">
                 <LeftButton onClick={goToPreviousSlide} />
                 <div className="testimonial-list flex items-center">
-                    {testimonialData.slice(startIndex, startIndex + 3).map(testimonial => (
-                        <Card key={testimonial.id} testimonial={testimonial} />
-                    ))}
+                    {testimonialData
+                        .slice(startIndex, startIndex + 3)
+                        .concat(testimonialData.slice(0, Math.max(3 - (testimonialData.length - startIndex), 0)))
+                        .map(testimonial => (
+                            <Card key={testimonial.id} testimonial={testimonial} />
+                        ))}
                 </div>
                 <RightButton onClick={goToNextSlide} />
             </div>
