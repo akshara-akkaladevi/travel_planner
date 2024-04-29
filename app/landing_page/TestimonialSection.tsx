@@ -29,8 +29,8 @@ const RightButton = ({ onClick }: { onClick: () => void }) => (
 );
 
 const Card = ({ testimonial }: { testimonial: Testimonial }) => (
-    <div className="testimonial-item m-2">
-        <div className="card">
+    <div className="testimonial-item m-3">
+        <div className="card duration-300 ">
             <div className="card-image">
                 <div className="square-image-wrapper">
                     <Image
@@ -84,7 +84,7 @@ export function TestimonialSection() {
 
     return (
         <section className="testimonial h-full flex flex-col justify-center items-center" style={{ height: "100vh" }}>
-            <h2 className="text-3xl font-bold mb-10">Explore our packages!</h2>
+            <h2 className="text-3xl font-bold mb-10">Explore popular trips!</h2>
             <div className="testimonial-slider relative flex items-center">
                 <LeftButton onClick={goToPreviousSlide} />
                 <div className="testimonial-list flex items-center">
