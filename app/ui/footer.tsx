@@ -16,7 +16,7 @@ export const FooterNew = () => {
                 <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
 
                     <div className="md:max-w-md lg:col-span-2">
-                        <a href="/" aria-label="Go home" title="Company" className="inline-flex items-center">
+                        <a href="/public" aria-label="Go home" title="Company" className="inline-flex items-center">
                             <Image src={airplaneImage.src} alt={"Airplane ticket"} width={40} height={30}></Image>
                             <span
                                 className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">Travel Planner</span>
@@ -38,15 +38,15 @@ export const FooterNew = () => {
                             </p>
                             <ul className="mt-2 space-y-2">
                                 <li>
-                                    <a href="/"
+                                    <a href="/public"
                                        className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">About</a>
                                 </li>
                                 <li>
-                                    <a href="/"
+                                    <a href="/public"
                                        className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Meet the Team</a>
                                 </li>
                                 <li>
-                                    <a href="/"
+                                    <a href="/public"
                                        className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Contact Us</a>
                                 </li>
                                 <li>
@@ -68,7 +68,7 @@ export const FooterNew = () => {
                         Travel Planner. All rights reserved.
                     </p>
                     <div className="flex items-center mt-4 space-x-4 sm:mt-0">
-                        <a href="/"
+                        <a href="/public"
                            className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                             <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
                                 <path
@@ -76,7 +76,7 @@ export const FooterNew = () => {
                                 ></path>
                             </svg>
                         </a>
-                        <a href="/"
+                        <a href="/public"
                            className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                             <svg viewBox="0 0 30 30" fill="currentColor" className="h-6">
                                 <circle cx="15" cy="15" r="4"></circle>
@@ -85,7 +85,7 @@ export const FooterNew = () => {
                                 ></path>
                             </svg>
                         </a>
-                        <a href="/"
+                        <a href="/public"
                            className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                             <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
                                 <path

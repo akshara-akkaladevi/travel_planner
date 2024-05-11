@@ -1,6 +1,6 @@
 import React from "react";
-import { Header } from "@/components/ui/header";
-import { FooterNew } from "@/components/ui/footer";
+import { Header } from "@/app/ui/header";
+import { FooterNew } from "@/app/ui/footer";
 import { HeroSection }  from "./landing_page/HeroSection";
 import {TestimonialSection} from "./landing_page/TestimonialSection";
 
