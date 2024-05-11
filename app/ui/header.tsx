@@ -1,10 +1,15 @@
 import React from "react"
 import{ Button }  from "./button"
+import Image from "next/image";
+import airplaneImage from "@/public/image/airplane-ticket.svg";
 
 export function Header() {
     return (
         <header className="flex items-center justify-between p-4 bg-blue-900 text-white">
-            <h1 className="text-2xl font-semibold">Travel Planner</h1>
+            <div className="flex items-center justify-center">
+                <Image src={airplaneImage.src} alt={"Airplane ticket"} width={40} height={30}></Image>
+                <h1 className="text-2xl font-semibold">Travel Planner</h1>
+            </div>
             <nav>
                 <ul className="flex gap-4">
                     <li>
