@@ -3,9 +3,8 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { User } from '@supabase/supabase-js';  // Add this import
+import { User } from '@supabase/supabase-js';
 
- // Update the type
 
 
 export default function LoginPage(){
@@ -29,7 +28,6 @@ export default function LoginPage(){
 
 
     const handleSignUp = async () => {
-        console.log({email, password});
         const res = await supabase.auth.signUp({
             email,
             password,
@@ -37,7 +35,6 @@ export default function LoginPage(){
                 emailRedirectTo: `${location.origin}/auth/callback`
             }
         })
-        console.log("Res: " + res);
         setUser(res.data.user)
         router.refresh();
         setEmail('')
