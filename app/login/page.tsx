@@ -47,7 +47,7 @@ export default function LoginPage(){
         router.refresh();
         setEmail('');
         setPassword('');
-        location.href = '/';
+        location.href = '/dashboard';
         // Redirect to the location of call
     }
 
