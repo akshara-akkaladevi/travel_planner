@@ -20,7 +20,7 @@ export default function LoginPage(){
         async function getUser(){
             const {data: {user}} = await supabase.auth.getUser()
             setUser(user);
-            setLoading(false)
+            setLoading(false);
         }
 
         getUser();
@@ -30,15 +30,12 @@ export default function LoginPage(){
     const handleSignUp = async () => {
         const res = await supabase.auth.signUp({
             email,
-            password,
-            options: {
-                emailRedirectTo: `${location.origin}/auth/callback`
-            }
+            password
         })
-        setUser(res.data.user)
+        setUser(res.data.user);
         router.refresh();
-        setEmail('')
-        setPassword('')
+        setEmail('');
+        setPassword('');
     }
 
     const handleSignIn = async () => {
@@ -48,15 +45,16 @@ export default function LoginPage(){
         })
         setUser(res.data.user)
         router.refresh();
-        setEmail('')
-        setPassword('')
+        setEmail('');
+        setPassword('');
+        location.href = '/';
         // Redirect to the location of call
     }
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
         router.refresh();
-        setUser(null)
+        setUser(null);
     }
 
     console.log({loading, user})
@@ -71,7 +69,7 @@ export default function LoginPage(){
                 <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-md w-96 text-center">
                     <h1 className="mb-4 text-xl font-bold text-gray-700 dark:text-gray-300">
                         {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        You're already logged in
+                        You're logged in
                     </h1>
                     <button
                         onClick={handleLogout}
