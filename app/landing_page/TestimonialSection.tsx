@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import "./styles.css";
+import { AuroraBackground } from "../ui/aurora-background";
+import { BackgroundGradient } from "../ui/background-gradient";
 
 interface Testimonial {
     id: number;
@@ -29,8 +31,9 @@ const RightButton = ({ onClick }: { onClick: () => void }) => (
 );
 
 const Card = ({ testimonial }: { testimonial: Testimonial }) => (
-    <div className="testimonial-item m-3">
-        <div className="card duration-300 ">
+    // <BackgroundGradient className="flex flex-col rounded-[22px] justify-center items-center  sm:p-10">
+    <div className="testimonial-item m-3 ">
+        <div className="card duration-300  ">   
             <div className="card-image">
                 <div className="square-image-wrapper">
                     <Image
@@ -46,6 +49,7 @@ const Card = ({ testimonial }: { testimonial: Testimonial }) => (
             <CardDescription description={testimonial.description} />
         </div>
     </div>
+    // </BackgroundGradient>
 );
 
 const CardContent = ({ testimonial }: { testimonial: Testimonial }) => (
@@ -83,7 +87,9 @@ export function TestimonialSection() {
     };
 
     return (
-        <section className="testimonial h-full flex flex-col justify-center items-center" style={{ height: "100vh" }}>
+        //Add background image or gradient
+        <AuroraBackground>
+        <section className="testimonial h-full flex flex-col justify-center items-center text-white" style={{ height: "100vh" }}>
             <h2 className="text-3xl font-bold mb-10">Explore popular trips!</h2>
             <div className="testimonial-slider relative flex items-center">
                 <LeftButton onClick={goToPreviousSlide} />
@@ -98,5 +104,6 @@ export function TestimonialSection() {
                 <RightButton onClick={goToNextSlide} />
             </div>
         </section>
+        </AuroraBackground>
     );
 }

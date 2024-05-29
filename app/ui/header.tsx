@@ -24,7 +24,7 @@ export function Header() {
         <header className="flex items-center justify-between p-4 bg-blue-900 text-white">
             <div className="flex items-center justify-center">
                 <Image src={airplaneImage.src} alt={"Airplane ticket"} width={40} height={30}></Image>
-                <h1 className="text-2xl font-semibold">Travel Planner</h1>
+                <a href="/"><h1 className="text-2xl font-semibold">Travel Planner</h1></a>
             </div>
             <nav>
                 <ul className="flex gap-4">

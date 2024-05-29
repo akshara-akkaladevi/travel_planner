@@ -6,7 +6,7 @@ import airplaneImage from "../../public/image/airplane-ticket.svg"
 
 export const FooterNew = () => {
     return (
-        <div className="relative mt-16 bg-blue-900 text-white">
+        <div className="relative bg-blue-900 text-white">
             {/*This is a SVG element that represents a curved wave in the footer which should be removed for the time being*/}
             {/*<svg className="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-blue-900 dark:text-gray-700"*/}
             {/*     preserveAspectRatio="none" viewBox="0 0 1440 54">*/}
@@ -39,11 +39,15 @@ export const FooterNew = () => {
                             </p>
                             <ul className="mt-2 space-y-2">
                                 <li>
-                                    <a href="/public"
-                                       className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">About</a>
+                                    <a href="/"
+                                       className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Home</a>
                                 </li>
                                 <li>
-                                    <a href="/public"
+                                    <a href="/login"
+                                       className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Login</a>
+                                </li>
+                                <li>
+                                    <a href="/meet-the-team"
                                        className="transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400">Meet the Team</a>
                                 </li>
                                 <li>
@@ -68,7 +72,7 @@ export const FooterNew = () => {
                     <p className="text-sm text-gray-100">
                         Travel Planner. All rights reserved.
                     </p>
-                    <div className="flex items-center mt-4 space-x-4 sm:mt-0">
+                    {/* <div className="flex items-center mt-4 space-x-4 sm:mt-0">
                         <a href="/public"
                            className="transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400">
                             <svg viewBox="0 0 24 24" fill="currentColor" className="h-5">
@@ -94,7 +98,7 @@ export const FooterNew = () => {
                                 ></path>
                             </svg>
                         </a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
