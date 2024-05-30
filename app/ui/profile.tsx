@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { BackgroundGradient } from "./background-gradient";
-import  Image  from 'next/image';
+import Image from "next/image";
 
 interface ProfileCardProps {
   imgSrc: string;
@@ -28,7 +28,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       <BackgroundGradient className="flex flex-col rounded-[22px] justify-center items-center p-1 sm:p-10 bg-white dark:bg-zinc-900">
         {/* <div className="max-w-sm  bg-white shadow-md overflow-hidden rounded-lg text-center"> */}
         <div className="flex justify-center mt-4">
-          <Image src={imgSrc} alt={name} width={160} height={160} className="rounded-lg max-h-50" />
+          <Image
+            src={imgSrc}
+            alt={name}
+            width={160}
+            height={160}
+            className="rounded-lg max-h-50"
+          />
         </div>
         <div className="flex flex-col justify-center items-center p-4">
           <h1 className="text-2xl font-bold">{name}</h1>
