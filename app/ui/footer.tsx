@@ -17,7 +17,7 @@ export const FooterNew = () => {
                 <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
 
                     <div className="md:max-w-md lg:col-span-2">
-                        <a href="/public" aria-label="Go home" title="Company" className="inline-flex items-center">
+                        <a href="/" aria-label="Go home" title="Company" className="inline-flex items-center">
                             <Image src={airplaneImage.src} alt={"Airplane ticket"} width={40} height={30}></Image>
                             <span
                                 className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">Travel Planner</span>

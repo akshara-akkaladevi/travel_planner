@@ -23,11 +23,11 @@ const testimonialData: Testimonial[] = [
 ];
 
 const LeftButton = ({ onClick }: { onClick: () => void }) => (
-    <button className="slider-button prev" onClick={onClick}>&#10094;</button>
+    <button className="slider-button prev m-2" onClick={onClick}>&#10094;</button>
 );
 
 const RightButton = ({ onClick }: { onClick: () => void }) => (
-    <button className="slider-button next" onClick={onClick}>&#10095;</button>
+    <button className="slider-button next m-2" onClick={onClick}>&#10095;</button>
 );
 
 const Card = ({ testimonial }: { testimonial: Testimonial }) => (
@@ -88,7 +88,7 @@ export function TestimonialSection() {
 
     return (
         //Add background image or gradient
-        <AuroraBackground>
+        <AuroraBackground className='bg-blue-800'>
         <section className="testimonial h-full flex flex-col justify-center items-center text-white" style={{ height: "100vh" }}>
             <h2 className="text-3xl font-bold mb-10">Explore popular trips!</h2>
             <div className="testimonial-slider relative flex items-center">
