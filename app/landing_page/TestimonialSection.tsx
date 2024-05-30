@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import "./styles.css";
 import { AuroraBackground } from "../ui/aurora-background";
-import { BackgroundGradient } from "../ui/background-gradient";
 
 interface Testimonial {
     id: number;
@@ -32,8 +31,8 @@ const RightButton = ({ onClick }: { onClick: () => void }) => (
 
 const Card = ({ testimonial }: { testimonial: Testimonial }) => (
     // <BackgroundGradient className="flex flex-col rounded-[22px] justify-center items-center  sm:p-10">
-    <div className="testimonial-item m-3 ">
-        <div className="card duration-300  ">   
+    <div className="testimonial-item m-3 rounded-lg ">
+        <div className="card duration-200  ">
             <div className="card-image">
                 <div className="square-image-wrapper">
                     <Image
@@ -98,7 +97,7 @@ export function TestimonialSection() {
                         .slice(startIndex, startIndex + 3)
                         .concat(testimonialData.slice(0, Math.max(3 - (testimonialData.length - startIndex), 0)))
                         .map(testimonial => (
-                            <Card key={testimonial.id} testimonial={testimonial} />
+                            <Card key={testimonial.id} testimonial={testimonial}/>
                         ))}
                 </div>
                 <RightButton onClick={goToNextSlide} />

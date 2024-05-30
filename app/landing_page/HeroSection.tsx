@@ -7,7 +7,7 @@ import "./styles.css";
 const TypeWriterComponent = () => {
   const [text] = useTypewriter({
     words: [" us", " AI"],
-    loop: 20,
+    loop: 0,
     onLoopDone: () => console.log(`loop completed after 20 runs.`),
   });
 
