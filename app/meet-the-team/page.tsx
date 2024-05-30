@@ -20,22 +20,23 @@ export default function MeetTheTeam() {
         {/* <section className="flex justify-center relative h-screen bg-cover bg-center" style={{ backgroundImage: `url('/image/landing_bg_paris.png')` }}> */}
         <div className="flex m-16 justify-center items-center">
           <ProfileCard
-            imgSrc="/image/atharva"
+            imgSrc="/image/atharva.jpg"
             name="Atharva Dagaonkar"
             title="Software Engineer at ARRISE"
-            university="Vellore Institute of Technology"
+            university="B.Tech, CSE from VIT Vellore"
             linkedinUrl="https://www.linkedin.com/in/atharva-dagaonkar/"
             githubUrl="https://www.github.com/athxrva1"
             email="dagaonkaratharva@gmail.com"
           />
-          <ProfileCard
-            imgSrc="/image/atharva"
-            name="Atharva Dagaonkar"
-            title="Software Engineer at ARRISE "
-            university="Vellore Institute of Technology"
-            linkedinUrl="#"
-            githubUrl="#"
-          />
+          {/*<ProfileCard*/}
+          {/*  imgSrc="/image/atharva"*/}
+          {/*  name="Akshara Akkaladevi"*/}
+          {/*  title="Ex Research - IIITH, Signal Corp"*/}
+          {/*  university="B.Tech in IT from BVRIT Hyderabad"*/}
+          {/*  linkedinUrl="https://www.linkedin.com/in/atharva-dagaonkar/"*/}
+          {/*  githubUrl="https://www.github.com/athxrva1"*/}
+          {/*  email="akshara.akkaladevi@gmail.com"*/}
+          {/*/>*/}
         </div>
         {/* </section> */}
       </motion.div>
