@@ -5,7 +5,6 @@ import Image from "next/image";
 import airplaneImage from "@/public/image/airplane-ticket.svg";
 import useUser from "../lib/useUser";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-// import {router} from "next/navigation"
 
 import { useRouter } from "next/navigation";
 
@@ -41,7 +40,7 @@ export function Header() {
           </li>
           <li>
             <Button variant="link" className="text-white">
-              Contact Us
+              <a href="/meet-the-team">Contact Us</a>
             </Button>
           </li>
           {loading ? (

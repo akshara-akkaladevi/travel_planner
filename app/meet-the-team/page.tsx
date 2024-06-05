@@ -2,8 +2,28 @@
 import { AuroraBackground } from "../ui/aurora-background";
 import ProfileCard from "../ui/profile";
 import { motion } from "framer-motion";
+
 export default function MeetTheTeam() {
-  const team = [{ name: "Atharva" }];
+  const team = [
+    {
+      imgSrc: "/image/atharva.jpg",
+      name: "Atharva Dagaonkar",
+      title: "Software Engineer at ARRISE",
+      university: "B.Tech, CSE from VIT Vellore",
+      linkedinUrl: "https://www.linkedin.com/in/atharva-dagaonkar/",
+      githubUrl: "https://www.github.com/athxrva1",
+      email: "dagaonkaratharva@gmail.com",
+    },
+    {
+      imgSrc: "/image/akshara.jpeg",
+      name: "Akshara Akkaladevi",
+      title: "Ex Research - IIITH & Signal Corp",
+      university: "B.Tech, IT from BVRIT Hyderabad",
+      linkedinUrl: "https://www.linkedin.com/in/akshara-akkaladevi-139760211/",
+      githubUrl: "https://www.github.com/akshara-akkaladevi",
+      email: "akshara.akkaladevi@gmail.com",
+    },
+  ];
 
   return (
     <AuroraBackground>
@@ -17,28 +37,20 @@ export default function MeetTheTeam() {
         }}
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
-        {/* <section className="flex justify-center relative h-screen bg-cover bg-center" style={{ backgroundImage: `url('/image/landing_bg_paris.png')` }}> */}
-        <div className="flex m-16 justify-center items-center">
-          <ProfileCard
-            imgSrc="/image/atharva.jpg"
-            name="Atharva Dagaonkar"
-            title="Software Engineer at ARRISE"
-            university="B.Tech, CSE from VIT Vellore"
-            linkedinUrl="https://www.linkedin.com/in/atharva-dagaonkar/"
-            githubUrl="https://www.github.com/athxrva1"
-            email="dagaonkaratharva@gmail.com"
-          />
-          {/*<ProfileCard*/}
-          {/*  imgSrc="/image/atharva"*/}
-          {/*  name="Akshara Akkaladevi"*/}
-          {/*  title="Ex Research - IIITH, Signal Corp"*/}
-          {/*  university="B.Tech in IT from BVRIT Hyderabad"*/}
-          {/*  linkedinUrl="https://www.linkedin.com/in/atharva-dagaonkar/"*/}
-          {/*  githubUrl="https://www.github.com/athxrva1"*/}
-          {/*  email="akshara.akkaladevi@gmail.com"*/}
-          {/*/>*/}
+        <div className="flex flex-wrap m-16 justify-center items-center gap-8">
+          {team.map((member, index) => (
+            <ProfileCard
+              key={index}
+              imgSrc={member.imgSrc}
+              name={member.name}
+              title={member.title}
+              university={member.university}
+              linkedinUrl={member.linkedinUrl}
+              githubUrl={member.githubUrl}
+              email={member.email}
+            />
+          ))}
         </div>
-        {/* </section> */}
       </motion.div>
     </AuroraBackground>
   );
