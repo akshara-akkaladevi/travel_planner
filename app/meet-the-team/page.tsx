@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export default function MeetTheTeam() {
   const team = [
     {
-      imgSrc: "/image/atharva.jpg",
+      imgSrc: "/image/atharva2.jpeg",
       name: "Atharva Dagaonkar",
       title: "Software Engineer at ARRISE",
       university: "B.Tech, CSE from VIT Vellore",
@@ -17,8 +17,8 @@ export default function MeetTheTeam() {
     {
       imgSrc: "/image/akshara.jpeg",
       name: "Akshara Akkaladevi",
-      title: "Ex Research - IIITH & Signal Corp",
-      university: "B.Tech, IT from BVRIT Hyderabad",
+      title: "Ex Research - IIITH & Signal",
+      university: "B.Tech, IT from BVRITH",
       linkedinUrl: "https://www.linkedin.com/in/akshara-akkaladevi-139760211/",
       githubUrl: "https://www.github.com/akshara-akkaladevi",
       email: "akshara.akkaladevi@gmail.com",
