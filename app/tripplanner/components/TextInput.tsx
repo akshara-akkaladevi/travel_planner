@@ -1,6 +1,6 @@
 // components/TextInput.tsx
 
-import React from 'react';
+import React from "react";
 
 interface TextInputProps {
   label: string;
@@ -10,9 +10,14 @@ interface TextInputProps {
 
 const TextInput: React.FC<TextInputProps> = ({ label, value, onChange }) => {
   return (
-    <div>
-      <label>{label}</label>
-      <input type="text" value={value} onChange={onChange} />
+    <div className="flex items-center m-5">
+      <label className="m-1">{label}</label>
+      <input
+        className="border-2 rounded m-1 p-2"
+        type="text"
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };

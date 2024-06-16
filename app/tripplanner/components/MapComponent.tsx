@@ -1,6 +1,6 @@
 // components/MapComponent.tsx
-'use client'
-import React from 'react';
+"use client";
+import React from "react";
 
 interface MapComponentProps {
   apiKey: any;
@@ -8,11 +8,10 @@ interface MapComponentProps {
 
 const MapComponent: React.FC<MapComponentProps> = ({ apiKey }) => {
   return (
-    <div className="centered">
+    <div className="flex justify-center items-center">
       <iframe
-        width="600"
-        height="400"
-        frameBorder="0"
+        width="400"
+        height="300"
         src={`https://maps.locationiq.com/v3/staticmap?key=${apiKey}&center=48.8584,2.2945&zoom=10&size=400x300&format=png`}
         allowFullScreen
       ></iframe>

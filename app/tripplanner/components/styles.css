@@ -2,18 +2,18 @@
 
 .date-container {
     display: flex;
-    justify-content: space-around;
+    /*justify-content: center;*/
     margin-bottom: 20px;
   }
-  
+
   .date-picker {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
   
-  .date-label {
-    margin-bottom: 5px;
-  }
+
   
   .date-input {
     padding: 8px;

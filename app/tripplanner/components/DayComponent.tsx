@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface Day {
   date: Date;
@@ -15,7 +15,13 @@ interface DayComponentProps {
   onUpdateDetails: (details: string) => void;
 }
 
-const DayComponent: React.FC<DayComponentProps> = ({ day, index, onAddDayAfter, onDeleteDay, onUpdateDetails }) => {
+const DayComponent: React.FC<DayComponentProps> = ({
+  day,
+  index,
+  onAddDayAfter,
+  onDeleteDay,
+  onUpdateDetails,
+}) => {
   const [collapsed, setCollapsed] = useState(true);
   const [activityDetails, setActivityDetails] = useState(day.details);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -38,48 +44,65 @@ const DayComponent: React.FC<DayComponentProps> = ({ day, index, onAddDayAfter, 
   };
 
   return (
-    <div className="day-component">
-      <div className="day-header">
-        <div className="day-header-top">
-          <h3>{`Day ${index}: ${day.date.toLocaleDateString()}`}</h3>
-          <div className="day-actions">
-            <button onClick={onAddDayAfter} className="action-button" title="Add Day After">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-gray-100 p-4">
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-semibold">{`Day ${index}: ${day.date.toLocaleDateString()}`}</h3>
+          <div className="space-x-2">
+            <button
+              onClick={onAddDayAfter}
+              className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition"
+              title="Add Day After"
+            >
               +
             </button>
-            <button onClick={onDeleteDay} className="action-button" title="Delete Day">
+            <button
+              onClick={onDeleteDay}
+              className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition"
+              title="Delete Day"
+            >
               -
             </button>
           </div>
         </div>
-        <span className={`arrow ${collapsed ? 'down' : 'up'}`} onClick={toggleCollapsed}>
-          {collapsed ? '▼' : '▲'}
-        </span>
+        <button
+          className="mt-2 text-gray-600 hover:text-gray-800 transition"
+          onClick={toggleCollapsed}
+        >
+          {collapsed ? "▼ Show Details" : "▲ Hide Details"}
+        </button>
       </div>
       {!collapsed && (
-        <div className="day-details">
-          <p>{day.details}</p>
+        <div className="p-4">
+          <p className="mb-4">{day.details}</p>
           <input
             type="text"
             placeholder="Enter details (e.g., destinations, restaurants)"
             value={activityDetails}
             onChange={handleInputChange}
-            className="activity-input"
+            className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <div className="tags-container">
-            <span
-              className="tag"
-              onClick={() => handleTagClick('Destination')}
-              style={{ backgroundColor: selectedTags.includes('Destination') ? '#007bff' : '#e9ecef' }}
+          <div className="space-x-2">
+            <button
+              className={`px-3 py-1 rounded ${
+                selectedTags.includes("Destination")
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+              onClick={() => handleTagClick("Destination")}
             >
               Destination
-            </span>
-            <span
-              className="tag"
-              onClick={() => handleTagClick('Restaurant')}
-              style={{ backgroundColor: selectedTags.includes('Restaurant') ? '#007bff' : '#e9ecef' }}
+            </button>
+            <button
+              className={`px-3 py-1 rounded ${
+                selectedTags.includes("Restaurant")
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+              onClick={() => handleTagClick("Restaurant")}
             >
               Restaurant
-            </span>
+            </button>
           </div>
         </div>
       )}

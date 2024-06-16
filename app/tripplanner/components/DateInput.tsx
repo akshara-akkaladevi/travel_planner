@@ -1,9 +1,9 @@
 // components/DateInput.tsx
 
-import React from 'react';
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import './styles.css'; 
+import React from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./styles.css";
 
 interface DateInputProps {
   label: string;
@@ -13,9 +13,15 @@ interface DateInputProps {
   setEndDate: (date: Date | null) => void;
 }
 
-const DateInput: React.FC<DateInputProps> = ({ label, startDate, endDate, setStartDate, setEndDate }) => {
+const DateInput: React.FC<DateInputProps> = ({
+  label,
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+}) => {
   return (
-    <div className="date-container">
+    <div className="date-container m-5">
       <div className="date-picker">
         <label className="date-label">{label}</label>
         <DatePicker
@@ -25,11 +31,11 @@ const DateInput: React.FC<DateInputProps> = ({ label, startDate, endDate, setSta
           startDate={startDate}
           endDate={endDate}
           placeholderText="From date"
-          className="date-input"
+          className="date-input m-1"
         />
       </div>
       <div className="date-picker">
-        <label className="date-label">To Date:</label>
+        {/*<label className="date-label">To Date:</label>*/}
         <DatePicker
           selected={endDate}
           onChange={(date: Date) => setEndDate(date)}
