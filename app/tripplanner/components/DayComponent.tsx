@@ -3,20 +3,22 @@
 import React, { useState } from 'react';
 
 interface Day {
-    date: Date;
-    details: string;
+  date: Date;
+  details: string;
 }
-  
 
 interface DayComponentProps {
   day: Day;
   index: number;
+  onAddDayAfter: () => void;
+  onDeleteDay: () => void;
+  onUpdateDetails: (details: string) => void;
 }
 
-const DayComponent: React.FC<DayComponentProps> = ({ day, index }) => {
+const DayComponent: React.FC<DayComponentProps> = ({ day, index, onAddDayAfter, onDeleteDay, onUpdateDetails }) => {
   const [collapsed, setCollapsed] = useState(true);
-  const [activityDetails, setActivityDetails] = useState('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]); // State to store selected tags
+  const [activityDetails, setActivityDetails] = useState(day.details);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -24,6 +26,7 @@ const DayComponent: React.FC<DayComponentProps> = ({ day, index }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setActivityDetails(e.target.value);
+    onUpdateDetails(e.target.value);
   };
 
   const handleTagClick = (tag: string) => {
@@ -36,9 +39,21 @@ const DayComponent: React.FC<DayComponentProps> = ({ day, index }) => {
 
   return (
     <div className="day-component">
-      <div className="day-header" onClick={toggleCollapsed}>
-        <h3>{`Day ${index}: ${day.date.toLocaleDateString()}`}</h3>
-        <span className={`arrow ${collapsed ? 'down' : 'up'}`}>&#9660;</span>
+      <div className="day-header">
+        <div className="day-header-top">
+          <h3>{`Day ${index}: ${day.date.toLocaleDateString()}`}</h3>
+          <div className="day-actions">
+            <button onClick={onAddDayAfter} className="action-button" title="Add Day After">
+              +
+            </button>
+            <button onClick={onDeleteDay} className="action-button" title="Delete Day">
+              -
+            </button>
+          </div>
+        </div>
+        <span className={`arrow ${collapsed ? 'down' : 'up'}`} onClick={toggleCollapsed}>
+          {collapsed ? '▼' : '▲'}
+        </span>
       </div>
       {!collapsed && (
         <div className="day-details">
@@ -51,12 +66,18 @@ const DayComponent: React.FC<DayComponentProps> = ({ day, index }) => {
             className="activity-input"
           />
           <div className="tags-container">
-            <span className="tag" onClick={() => handleTagClick('Destination')} 
-              style={{ backgroundColor: selectedTags.includes('Destination') ? '#007bff' : '#e9ecef' }}>
+            <span
+              className="tag"
+              onClick={() => handleTagClick('Destination')}
+              style={{ backgroundColor: selectedTags.includes('Destination') ? '#007bff' : '#e9ecef' }}
+            >
               Destination
             </span>
-            <span className="tag" onClick={() => handleTagClick('Restaurant')}
-              style={{ backgroundColor: selectedTags.includes('Restaurant') ? '#007bff' : '#e9ecef' }}>
+            <span
+              className="tag"
+              onClick={() => handleTagClick('Restaurant')}
+              style={{ backgroundColor: selectedTags.includes('Restaurant') ? '#007bff' : '#e9ecef' }}
+            >
               Restaurant
             </span>
           </div>
