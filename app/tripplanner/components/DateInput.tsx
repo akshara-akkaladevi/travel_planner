@@ -21,8 +21,8 @@ const DateInput: React.FC<DateInputProps> = ({
   setEndDate,
 }) => {
   return (
-    <div className="date-container m-5">
-      <div className="date-picker">
+    <div className="flex m-5">
+      <div className="flex justify-center items-center">
         <label className="date-label">{label}</label>
         <DatePicker
           selected={startDate}
@@ -31,10 +31,10 @@ const DateInput: React.FC<DateInputProps> = ({
           startDate={startDate}
           endDate={endDate}
           placeholderText="From date"
-          className="date-input m-1"
+          className="p-2 border border-gray-300 rounded text-sm m-1"
         />
       </div>
-      <div className="date-picker">
+      <div className="flex justify-center items-cente">
         {/*<label className="date-label">To Date:</label>*/}
         <DatePicker
           selected={endDate}
@@ -44,7 +44,7 @@ const DateInput: React.FC<DateInputProps> = ({
           endDate={endDate}
           minDate={startDate}
           placeholderText="To date"
-          className="date-input"
+          className="p-2 border border-gray-300 rounded text-sm m-1"
         />
       </div>
     </div>
