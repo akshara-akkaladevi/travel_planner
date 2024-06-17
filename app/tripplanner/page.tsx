@@ -1,12 +1,14 @@
 // app/tripplanner.tsx
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import DateInput from "./components/DateInput";
 import TextInput from "./components/TextInput";
 import NumberInput from "./components/NumberInput";
 import AdventureTypeSelect from "./components/AdventureTypeSelect";
 import DayComponent from "./components/DayComponent";
 import MapComponent from "./components/MapComponent";
+import axios from 'axios';
+
 interface Day {
   date: Date;
   details: string;
@@ -19,25 +21,62 @@ const TripPlannerPage = () => {
   const [adventureType, setAdventureType] = useState("");
   const [numParticipants, setNumParticipants] = useState(1);
   const [days, setDays] = useState<Day[]>([]);
+  const [coordinates, setCoordinates] = useState<{ lat: number, lon: number } | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  useEffect(() => {
-    const calculateAndSetDays = () => {
-      if (startDate && endDate) {
-        const start = startDate.getTime();
-        const end = endDate.getTime();
-        const totalDays = Math.ceil((end - start) / (1000 * 3600 * 24));
+  const calculateAndSetDays = useCallback(() => {
+    if (startDate && endDate) {
+      const start = startDate.getTime();
+      const end = endDate.getTime();
+      const totalDays = Math.ceil((end - start) / (1000 * 3600 * 24));
 
-        const newDays = Array.from({ length: totalDays }, (_, index) => ({
-          date: new Date(start + index * 24 * 3600 * 1000),
-          details: "",
-        }));
+      const newDays = Array.from({ length: totalDays }, (_, index) => ({
+        date: new Date(start + index * 24 * 3600 * 1000),
+        details: "",
+      }));
 
-        setDays(newDays);
-      }
-    };
-
-    calculateAndSetDays();
+      setDays(newDays);
+    }
   }, [startDate, endDate]);
+
+  const fetchCoordinates = async () => {
+    try {
+      const response = await axios.get(`https://us1.locationiq.com/v1/search`, {
+        params: {
+          key: process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY,
+          q: place,
+          format: "json"
+        }
+      });
+      const data = response.data[0];
+      console.log("Coordinates data:", data);
+      setCoordinates({ lat: parseFloat(data.lat), lon: parseFloat(data.lon) });
+    } catch (error) {
+      console.error("Error fetching coordinates:", error);
+    }
+  };
+
+  const fetchImage = async () => {
+    try {
+      const unsplashResponse = await axios.get('https://api.unsplash.com/photos/random', {
+        headers: {
+          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+        },
+        params: {
+          query: place,
+          orientation: 'landscape',
+          count: 1
+        }
+      });
+
+      const imageUrl = unsplashResponse.data[0]?.urls.regular;
+      console.log("Image URL:", imageUrl);
+      setImageUrl(imageUrl);
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
 
   const handleAddDayAfter = (index: number) => {
     const updatedDays = [...days];
@@ -45,12 +84,11 @@ const TripPlannerPage = () => {
       updatedDays[index].date.getTime() + 24 * 3600 * 1000,
     );
 
-    // Check if the next day already exists
     if (
       index < updatedDays.length - 1 &&
       isSameDate(nextDayDate, updatedDays[index + 1].date)
     ) {
-      return; // Do not add duplicate day
+      return;
     }
 
     updatedDays.splice(index + 1, 0, { date: nextDayDate, details: "" });
@@ -59,7 +97,6 @@ const TripPlannerPage = () => {
 
   const handleDeleteDay = (index: number) => {
     if (days.length === 1) {
-      // Do not delete if there's only one day
       return;
     }
     const updatedDays = [...days];
@@ -73,9 +110,12 @@ const TripPlannerPage = () => {
     setDays(updatedDays);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Additional form submission logic can go here if needed
+    setFormSubmitted(true);
+    calculateAndSetDays();
+    await fetchCoordinates();
+    await fetchImage();
   };
 
   const isSameDate = (date1: Date, date2: Date) => {
@@ -87,9 +127,8 @@ const TripPlannerPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-blue-50 items-center">
-      {/* Left Side: Trip Planner */}
-      <div className="flex-1 p-8 overflow-y-auto">
+    <div className="flex h-screen bg-blue-50">
+      <div className="flex-1 overflow-y-auto p-8 w-1/2">
         <h2 className="text-3xl font-bold text-gray-800 mb-2">
           {place || "My Trip"}
         </h2>
@@ -136,7 +175,16 @@ const TripPlannerPage = () => {
           </button>
         </form>
 
-        {days.length > 0 && (
+        {formSubmitted && imageUrl && (
+            <div className="mb-6 relative">
+              <img src={imageUrl} alt={place} className="w-96 h-64 rounded-lg shadow-md" />
+              <div className="absolute left-2 top-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-md">
+                {place}
+              </div>
+            </div>
+        )}
+
+        {formSubmitted && days.length > 0 && (
           <div className="space-y-4">
             {days.map((day, index) => (
               <div
@@ -158,10 +206,15 @@ const TripPlannerPage = () => {
         )}
       </div>
 
-      {/* Right Side: Map Component */}
-      <div className="flex-1">
-        <div className="">
-          <MapComponent apiKey={process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY} />
+      <div className="w-1/2">
+        <div className="h-full">
+          {formSubmitted && coordinates && (
+            <MapComponent
+              apiKey={process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}
+              lat={coordinates.lat}
+              lon={coordinates.lon}
+            />
+          )}
         </div>
       </div>
     </div>
