@@ -1,12 +1,13 @@
-// app/tripplanner.tsx
-"use client";
-import { useState, useCallback } from "react";
+// app/TripPlannerPage.tsx
+'use client'
+import React, { useState, useCallback } from "react";
 import DateInput from "./components/DateInput";
 import TextInput from "./components/TextInput";
 import NumberInput from "./components/NumberInput";
 import AdventureTypeSelect from "./components/AdventureTypeSelect";
 import DayComponent from "./components/DayComponent";
-import MapComponent from "./components/MapComponent";
+import MapComponent, { Marker } from "./components/MapComponent"; // Import Marker and MapComponent
+import ImageDisplay from "./components/ImageDisplay"; // Import ImageDisplay component
 import axios from 'axios';
 
 interface Day {
@@ -16,13 +17,13 @@ interface Day {
 
 const TripPlannerPage = () => {
   const [place, setPlace] = useState("");
+  const [submittedPlace, setSubmittedPlace] = useState("");
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [adventureType, setAdventureType] = useState("");
   const [numParticipants, setNumParticipants] = useState(1);
   const [days, setDays] = useState<Day[]>([]);
-  const [coordinates, setCoordinates] = useState<{ lat: number, lon: number } | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [markers, setMarkers] = useState<Marker[]>([]); // State to hold markers
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const calculateAndSetDays = useCallback(() => {
@@ -39,44 +40,6 @@ const TripPlannerPage = () => {
       setDays(newDays);
     }
   }, [startDate, endDate]);
-
-  const fetchCoordinates = async () => {
-    try {
-      const response = await axios.get(`https://us1.locationiq.com/v1/search`, {
-        params: {
-          key: process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY,
-          q: place,
-          format: "json"
-        }
-      });
-      const data = response.data[0];
-      console.log("Coordinates data:", data);
-      setCoordinates({ lat: parseFloat(data.lat), lon: parseFloat(data.lon) });
-    } catch (error) {
-      console.error("Error fetching coordinates:", error);
-    }
-  };
-
-  const fetchImage = async () => {
-    try {
-      const unsplashResponse = await axios.get('https://api.unsplash.com/photos/random', {
-        headers: {
-          Authorization: `Client-ID ${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
-        },
-        params: {
-          query: place,
-          orientation: 'landscape',
-          count: 1
-        }
-      });
-
-      const imageUrl = unsplashResponse.data[0]?.urls.regular;
-      console.log("Image URL:", imageUrl);
-      setImageUrl(imageUrl);
-    } catch (error) {
-      console.error("Error fetching image:", error);
-    }
-  };
 
   const handleAddDayAfter = (index: number) => {
     const updatedDays = [...days];
@@ -114,8 +77,21 @@ const TripPlannerPage = () => {
     e.preventDefault();
     setFormSubmitted(true);
     calculateAndSetDays();
-    await fetchCoordinates();
-    await fetchImage();
+    setSubmittedPlace(place); // Store place after form submission
+  };
+  const handleRemoveMarker = (markerToRemove: Marker) => {
+    const updatedMarkers = markers.filter(marker => (
+      !(marker.place === markerToRemove.place && marker.startTime === markerToRemove.startTime)
+    ));
+    setMarkers(updatedMarkers);
+  };
+  
+  const handlePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (formSubmitted) {
+      // Ignore input changes after form submission
+      return;
+    }
+    setPlace(e.target.value);
   };
 
   const isSameDate = (date1: Date, date2: Date) => {
@@ -130,7 +106,7 @@ const TripPlannerPage = () => {
     <div className="flex h-screen bg-blue-50">
       <div className="flex-1 overflow-y-auto p-8 w-1/2">
         <h2 className="text-3xl font-bold text-gray-800 mb-2">
-          {place || "My Trip"}
+          {submittedPlace || "My Trip"}
         </h2>
         <h1 className="text-xl font-semibold text-gray-600 mb-6">
           Plan Your Adventure
@@ -143,7 +119,7 @@ const TripPlannerPage = () => {
           <TextInput
             label="Destination"
             value={place}
-            onChange={(e) => setPlace(e.target.value)}
+            onChange={handlePlaceChange}
           />
 
           <div className="mb-4">
@@ -175,44 +151,39 @@ const TripPlannerPage = () => {
           </button>
         </form>
 
-        {formSubmitted && imageUrl && (
-            <div className="mb-6 relative">
-              <img src={imageUrl} alt={place} className="w-96 h-64 rounded-lg shadow-md" />
-              <div className="absolute left-2 top-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-md">
-                {place}
-              </div>
-            </div>
-        )}
+        {formSubmitted && <ImageDisplay destination={submittedPlace} />}
 
         {formSubmitted && days.length > 0 && (
-          <div className="space-y-4">
-            {days.map((day, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-md rounded-lg overflow-hidden"
-              >
-                <DayComponent
-                  day={day}
-                  index={index + 1}
-                  onAddDayAfter={() => handleAddDayAfter(index)}
-                  onDeleteDay={() => handleDeleteDay(index)}
-                  onUpdateDetails={(details) =>
-                    handleUpdateDetails(index, details)
-                  }
-                />
-              </div>
-            ))}
-          </div>
-        )}
+  <div className="space-y-4">
+    {days.map((day, index) => (
+      <div
+        key={index}
+        className="bg-white shadow-md rounded-lg overflow-hidden"
+      >
+    <DayComponent
+      day={day}
+      index={index}
+      onAddDayAfter={() => handleAddDayAfter(index)}
+      onDeleteDay={() => handleDeleteDay(index)}
+      onUpdateDetails={(details) => handleUpdateDetails(index, details)}
+      onAddMarker={(marker) => setMarkers([...markers, marker])}
+      onRemoveMarker={handleRemoveMarker} // Pass the function to remove marker
+    />
+
+      </div>
+    ))}
+  </div>
+)}
+
       </div>
 
       <div className="w-1/2">
         <div className="h-full">
-          {formSubmitted && coordinates && (
+          {formSubmitted && submittedPlace && (
             <MapComponent
               apiKey={process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}
-              lat={coordinates.lat}
-              lon={coordinates.lon}
+              place={submittedPlace}
+              markers={markers} // Pass markers to MapComponent
             />
           )}
         </div>

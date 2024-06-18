@@ -1,49 +1,107 @@
 // components/MapComponent.tsx
-"use client";
-// app/tripplanner/components/MapComponent.tsx
-import React, { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useRef, useState } from "react";
+import axios from 'axios';
+import "maplibre-gl/dist/maplibre-gl.css";
+import maplibregl, { Marker as MapMarker } from 'maplibre-gl'; // Import Marker as MapMarker
 
-interface MapComponentProps {
-  apiKey: any;
+interface Location {
+  name: string;
   lat: number;
   lon: number;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ apiKey, lat, lon }) => {
-  const mapRef = useRef<L.Map | null>(null);
+// Export Marker interface here
+export interface Marker {
+  lat: number;
+  lon: number;
+  startTime: string;
+  endTime: string;
+  place: string;
+}
+
+interface MapComponentProps {
+  apiKey: any;
+  place: string;
+  markers: Marker[]; // Receive markers as props
+}
+
+const MapComponent: React.FC<MapComponentProps> = ({ apiKey, place, markers }) => {
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+  const [map, setMap] = useState<maplibregl.Map | null>(null);
+  const [locations, setLocations] = useState<Location[]>([]);
 
   useEffect(() => {
-    const loadMap = async () => {
-      const L = await import("leaflet");
-
-      if (!mapRef.current) {
-        mapRef.current = L.map("map").setView([lat, lon], 13);
-
-        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(mapRef.current);
-
-        L.marker([lat, lon]).addTo(mapRef.current)
-          .bindPopup('Location')
-          .openPopup();
+    const fetchCoordinates = async () => {
+      try {
+        const response = await axios.get(`https://us1.locationiq.com/v1/search.php`, {
+          params: {
+            key: apiKey,
+            q: place,
+            format: "json"
+          }
+        });
+        const data = response.data.map((item: any) => ({
+          name: item.display_name,
+          lat: parseFloat(item.lat),
+          lon: parseFloat(item.lon)
+        }));
+        setLocations(data);
+      } catch (error) {
+        console.error("Error fetching coordinates:", error);
       }
     };
 
-    if (typeof window !== "undefined") {
-      loadMap();
+    if (place) {
+      fetchCoordinates();
     }
+  }, [place, apiKey]);
 
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
+  useEffect(() => {
+    if (mapContainer.current && locations.length > 0) {
+      if (map) {
+        map.remove();
+        setMap(null);
       }
-    };
-  }, [lat, lon]);
 
-  return <div id="map" className="h-96 w-full rounded-lg shadow-md"></div>;
+      const initialMap = new maplibregl.Map({
+        container: mapContainer.current,
+        style: 'https://tiles.locationiq.com/v3/streets/vector.json?key=' + apiKey, // Style URL for tiles
+        center: [locations[0].lon, locations[0].lat], // Initial center coordinates
+        zoom: 12, // Initial zoom level
+      });
+
+      locations.forEach((location) => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(https://tiles.locationiq.com/static/images/marker50px.png)';
+        el.style.width = '50px';
+        el.style.height = '50px';
+
+        new maplibregl.Marker(el)
+          .setLngLat([location.lon, location.lat])
+          .setPopup(new maplibregl.Popup().setText(location.name)) // Add popup
+          .addTo(initialMap);
+      });
+
+      // Add markers from props
+      markers.forEach((marker) => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(https://tiles.locationiq.com/static/images/marker50px.png)';
+        el.style.width = '50px';
+        el.style.height = '50px';
+
+        new maplibregl.Marker(el)
+          .setLngLat([marker.lon, marker.lat])
+          .setPopup(new maplibregl.Popup().setText(marker.place)) // Add popup with marker place
+          .addTo(initialMap);
+      });
+
+      setMap(initialMap);
+    }
+  }, [locations, apiKey, markers]);
+
+  return <div ref={mapContainer} className="h-96 w-full rounded-lg shadow-md"></div>;
 };
 
 export default MapComponent;
