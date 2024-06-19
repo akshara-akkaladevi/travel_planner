@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import TimeDestinationCard from "./TimeDestinationCard";
-import { Marker } from "./MapComponent"; // Import Marker interface
+import { Marker } from "./MapComponent"; 
 import axios from 'axios';
+import TravelSuggestions from "./TravelSuggestion";
 
 interface Day {
   date: Date;
@@ -12,17 +13,20 @@ interface TimeDetail {
   startTime: string;
   endTime: string;
   destination: string;
-  imageUrl?: string; // Optional image URL
+  imageUrl?: string; 
 }
 
 interface DayComponentProps {
+  style: string;
+  participants: number;
+  destination: string;
   day: Day;
   index: number;
   onAddDayAfter: () => void;
   onDeleteDay: () => void;
   onUpdateDetails: (details: string) => void;
-  onAddMarker: (marker: Marker) => void; // Function to add marker
-  onRemoveMarker: (marker: Marker) => void; // Function to remove marker
+  onAddMarker: (marker: Marker) => void; 
+  onRemoveMarker: (marker: Marker) => void; 
 }
 
 const DayComponent: React.FC<DayComponentProps> = ({
@@ -33,6 +37,8 @@ const DayComponent: React.FC<DayComponentProps> = ({
   onUpdateDetails,
   onAddMarker,
   onRemoveMarker,
+  participants,
+  style,
 }) => {
   const [collapsed, setCollapsed] = useState(true);
   const [destination, setDestination] = useState("");
@@ -40,7 +46,7 @@ const DayComponent: React.FC<DayComponentProps> = ({
   const [timeDetails, setTimeDetails] = useState<TimeDetail[]>([]);
   const [markers, setMarkers] = useState<Marker[]>([]);
   const [startTime, setStartTime] = useState<string>("");
-  const [duration, setDuration] = useState<number>(60); // Default duration in minutes
+  const [duration, setDuration] = useState<number>(60); 
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -69,13 +75,11 @@ const DayComponent: React.FC<DayComponentProps> = ({
         const lat = parseFloat(data.lat);
         const lon = parseFloat(data.lon);
 
-        // Calculate end time based on start time and duration
         const start = new Date(`2000-01-01T${startTime}`);
-        const end = new Date(start.getTime() + duration * 60000); // Add duration in milliseconds
+        const end = new Date(start.getTime() + duration * 60000); 
 
         const endTime = end.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-        // Create a new marker object
         const newMarker: Marker = {
           lat,
           lon,
@@ -84,10 +88,9 @@ const DayComponent: React.FC<DayComponentProps> = ({
           place: destination,
         };
 
-        onAddMarker(newMarker); // Pass new marker to parent (TripPlannerPage)
+        onAddMarker(newMarker); 
         setMarkers([...markers, newMarker]);
 
-        // Fetch the image URL once and store it
         try {
           const unsplashResponse = await axios.get('https://api.unsplash.com/photos/random', {
             headers: {
@@ -113,7 +116,7 @@ const DayComponent: React.FC<DayComponentProps> = ({
           // Clear inputs after adding
           setDestination("");
           setStartTime("");
-          setDuration(60); // Reset duration to default
+          setDuration(60); 
         } catch (error) {
           console.error("Error fetching image:", error);
         }
@@ -128,7 +131,6 @@ const DayComponent: React.FC<DayComponentProps> = ({
     const removedDetail = updatedTimeDetails.splice(index, 1)[0];
     setTimeDetails(updatedTimeDetails);
   
-    // Find and remove the corresponding marker
     const updatedMarkers = markers.filter(
       (marker) => !(marker.place === removedDetail.destination && marker.startTime === removedDetail.startTime)
     );
@@ -138,7 +140,7 @@ const DayComponent: React.FC<DayComponentProps> = ({
     );
   
     if (removedMarker) {
-      onRemoveMarker(removedMarker); // Pass removed marker to parent (TripPlannerPage)
+      onRemoveMarker(removedMarker);
     }
   
     setMarkers(updatedMarkers);
@@ -231,6 +233,13 @@ const DayComponent: React.FC<DayComponentProps> = ({
             >
               Activity
             </button>
+          </div>
+          <div className="container mx-auto p-4">
+            <TravelSuggestions
+              destination={destination}
+              numParticipants={participants}
+              travelStyle={style}
+            />
           </div>
           <div>
             {timeDetails.map((detail, idx) => (

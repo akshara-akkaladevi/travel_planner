@@ -1,12 +1,11 @@
 import React from 'react';
-import ImageDisplay from './ImageDisplay'; // Adjust the import path as necessary
 
 interface TimeDestinationCardProps {
   startTime: string;
   endTime: string;
   destination: string;
-  imageUrl?: string; // Optional image URL
-  onDelete: () => void; // Callback function to delete this card
+  imageUrl?: string; 
+  onDelete: () => void; 
 }
 
 const TimeDestinationCard: React.FC<TimeDestinationCardProps> = ({

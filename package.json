@@ -11,6 +11,7 @@
   "dependencies": {
     "@coreui/coreui": "^5.0.0",
     "@coreui/react": "^5.0.0",
+    "@google/generative-ai": "^0.12.0",
     "@maplibre/ngx-maplibre-gl": "^17.4.3",
     "@mui/x-date-pickers": "^7.2.0",
     "@nextui-org/user": "^2.0.28",
@@ -18,6 +19,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.43.2",
+    "ai": "^3.1.37",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

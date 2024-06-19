@@ -88,7 +88,6 @@ const TripPlannerPage = () => {
   
   const handlePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (formSubmitted) {
-      // Ignore input changes after form submission
       return;
     }
     setPlace(e.target.value);
@@ -103,6 +102,7 @@ const TripPlannerPage = () => {
   };
 
   return (
+
     <div className="flex h-screen bg-blue-50">
       <div className="flex-1 overflow-y-auto p-8 w-1/2">
         <h2 className="text-3xl font-bold text-gray-800 mb-2">
@@ -160,7 +160,13 @@ const TripPlannerPage = () => {
         key={index}
         className="bg-white shadow-md rounded-lg overflow-hidden"
       >
+
+      {formSubmitted && submittedPlace && (
+
     <DayComponent
+      style = {adventureType}
+      participants = {numParticipants}
+      destination = {submittedPlace}
       day={day}
       index={index}
       onAddDayAfter={() => handleAddDayAfter(index)}
@@ -168,9 +174,9 @@ const TripPlannerPage = () => {
       onUpdateDetails={(details) => handleUpdateDetails(index, details)}
       onAddMarker={(marker) => setMarkers([...markers, marker])}
       onRemoveMarker={handleRemoveMarker} // Pass the function to remove marker
-    />
+    /> )}
 
-      </div>
+    </div>
     ))}
   </div>
 )}
@@ -183,7 +189,7 @@ const TripPlannerPage = () => {
             <MapComponent
               apiKey={process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}
               place={submittedPlace}
-              markers={markers} // Pass markers to MapComponent
+              markers={markers} 
             />
           )}
         </div>
