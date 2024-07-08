@@ -9,6 +9,7 @@ import DayComponent from "./components/DayComponent";
 import MapComponent, { Marker } from "./components/MapComponent"; // Import Marker and MapComponent
 import ImageDisplay from "./components/ImageDisplay"; // Import ImageDisplay component
 import axios from 'axios';
+import useUser from '../lib/useUser';
 
 interface Day {
   date: Date;
@@ -25,6 +26,7 @@ const TripPlannerPage = () => {
   const [days, setDays] = useState<Day[]>([]);
   const [markers, setMarkers] = useState<Marker[]>([]); // State to hold markers
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const {user, setUser} = useUser();
 
   const calculateAndSetDays = useCallback(() => {
     if (startDate && endDate) {
@@ -40,6 +42,46 @@ const TripPlannerPage = () => {
       setDays(newDays);
     }
   }, [startDate, endDate]);
+
+  const addToDB = async () => {
+    
+      if (!user || !user.id) {
+        console.error("User not logged in");
+        return;
+      }
+  
+      try {
+        const tripData = {
+          userId: user.id,
+          place,
+          startDate: startDate?.toISOString(),
+          endDate: endDate?.toISOString(),
+          adventureType,
+          numParticipants,
+        };
+        console.log("Before calling API");
+        const response = await fetch('/api/trips', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'user-id': user.id
+          },
+          body: JSON.stringify(tripData),
+        });
+        console.log("After calling API")
+        if (!response.ok) {
+          throw new Error('Failed to send trip data');
+        }
+  
+        const result = await response.json();
+        console.log('Trip data sent successfully:', result);
+        // You can add further actions here, such as showing a success message or redirecting the user
+      } catch (error) {
+        console.error('Failed to send trip data:', error);
+        // Handle the error, e.g., show an error message to the user
+      }
+    
+  };
 
   const handleAddDayAfter = (index: number) => {
     const updatedDays = [...days];
@@ -77,6 +119,7 @@ const TripPlannerPage = () => {
     e.preventDefault();
     setFormSubmitted(true);
     calculateAndSetDays();
+    addToDB();
     setSubmittedPlace(place); // Store place after form submission
   };
   const handleRemoveMarker = (markerToRemove: Marker) => {
@@ -184,7 +227,7 @@ const TripPlannerPage = () => {
       </div>
 
       <div className="w-1/2">
-        <div className="h-full">
+        {/* <div className="h-full">
           {formSubmitted && submittedPlace && (
             <MapComponent
               apiKey={process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}
@@ -192,7 +235,7 @@ const TripPlannerPage = () => {
               markers={markers} 
             />
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
